@@ -7,9 +7,9 @@
 # x handle install command
 # √ - check for sub-args (eager or lazy load plugin, repo url)
 # √ - invoke a git command to see if repo exists &or is clonable
-# √ - create a subdir in pack dir with plugin name
+# √ - create a subdir in pack dir with plugin name and check if a plugin with the same name is already installed
 # √ - depending on subarg create opt (lazy) or start(eager) subdir
-# x - clone plugin & add to git submodule (with pinned version)
+# √ - clone plugin & add to git submodule (with pinned version)
 # x   - figure out how to pin the submodule to a commit that is tied to a specific branch
 # x - generate documentation
 # x - if lazy loaded add a line to load the plugin?
@@ -21,6 +21,27 @@
 # x - unlink from git submodule, delete dir?
 # x - if was lazy linked, check and remove import lines
 # x handle the update command
+# x handle a command to do setup when repo is first cloned (fetch all submodules, and other eventual stuff)
+
+## USEFUL VARIABLES ##
+
+commit_plugin_state() {
+
+    repo_root=$1
+    message=$2
+
+    git add "${repo_root}/pack" 
+    git add "${repo_root}/.gitmodules"
+
+    git commit -m $message
+    COMMIT_STATUS=$?
+
+    if [[ ! COMMIT_STATUS -eq 0 ]]
+    then
+        die "couldn't commit changes"
+    fi
+
+}
 
 ## USEFUL VARIABLES ##
 
@@ -117,7 +138,7 @@ install() {
         echo $latest_tag_commit
     fi
 
-    # create plugin directory
+    # create plugin directory and check if plugin is already installed
 
     package_name=$(echo $repo_url | xargs basename -s .git)
     plugin_root=""
@@ -125,13 +146,33 @@ install() {
     if [[ $install_dir -eq "eager" ]]
     then
         plugin_root="${pack_dir}/${package_name}/start" 
+        [[ -d $plugin_root ]] && die "plugin with name $package_name is already present at $plugin_root" 
     else
         plugin_root="${pack_dir}/${package_name}/opt"
+        [[ -d $plugin_root ]] && die "plugin with name $package_name is already present at $plugin_root" 
     fi
 
     mkdir -p $plugin_root
 
+    git clone $repo_url $plugin_root
+    CLONE_SUCCESSFUL=$?
+
+    if [[ ! CLONE_SUCCESSFUL -eq 0 ]] 
+    then
+        die "couldn't clone plugin repo"
+    fi
+
+    echo "successfully cloned plugin"
     
+    git submodule add $repo_url $plugin_root
+    SUBMODULE_ADD_SUCCESSFUL=$?
+
+    if [[ ! SUBMODULE_ADD_SUCCESSFUL -eq 0 ]] 
+    then
+        die "couldn't add cloned repo as submodule"
+    fi
+
+    commit_plugin_state() $repo_root "installed ${plugin_name}"
 }
 
 ## UNINSTALL COMMAND ##
