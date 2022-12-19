@@ -10,7 +10,8 @@
 # √ - create a subdir in pack dir with plugin name and check if a plugin with the same name is already installed
 # √ - depending on subarg create opt (lazy) or start(eager) subdir
 # √ - clone plugin & add to git submodule (with pinned version)
-# x   - figure out how to pin the submodule to a commit that is tied to a specific branch
+# √   - figure out how to pin the submodule to a commit that is tied to a specific branch
+# √   - commit newly added plugin
 # x - generate documentation
 # x - if lazy loaded add a line to load the plugin?
 # x   - or maybe i prompt the user to review the order in which the plugins are loaded?
@@ -27,13 +28,13 @@
 
 commit_plugin_state() {
 
-    repo_root=$0
-    message=$1
+    repo_root=$1
+    message=$2
 
     git add "${repo_root}/pack" 
     git add "${repo_root}/.gitmodules"
 
-    git commit -m $message
+    git commit -m "$message"
     COMMIT_STATUS=$?
 
     if [[ ! COMMIT_STATUS -eq 0 ]]
