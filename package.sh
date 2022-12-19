@@ -102,6 +102,21 @@ install() {
         die "couldn't find git repo at '$repo_url', it might not exist or be private"
     fi
 
+    # figure out which tag we want to pin
+
+    latest_tag_msg=$(git -c 'versionsort.suffix=-' ls-remote --tags --sort='v:refname' $repo_url | tail --lines=1)
+
+    latest_tagged_version=$(echo ${latest_tag_msg} | cut -d / -f 3 | sed -e "s/\^{}$//")
+    latest_tag_commit=$(echo ${latest_tag_msg} | cut -d ' ' -f 1)
+
+       if [[ $latest_tagged_version -eq "" && $latest_tag_commit -eq "" ]]
+    then
+        echo "no tags found, pinning to HEAD"
+    else
+        echo $latest_tagged_version
+        echo $latest_tag_commit
+    fi
+
     # create plugin directory
 
     package_name=$(echo $repo_url | xargs basename -s .git)
