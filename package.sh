@@ -45,9 +45,8 @@ commit_plugin_state() {
 
 ## USEFUL VARIABLES ##
 
-pack_dir="$(pwd)/pack"
-
-echo $pack_dir
+repo_root=$(pwd)
+pack_dir="${repo_root}/pack"
 
 ## PRE-COMMAND CHECKS ##
 
