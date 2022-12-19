@@ -27,8 +27,8 @@
 
 commit_plugin_state() {
 
-    repo_root=$1
-    message=$2
+    repo_root=$0
+    message=$1
 
     git add "${repo_root}/pack" 
     git add "${repo_root}/.gitmodules"
@@ -140,16 +140,16 @@ install() {
 
     # create plugin directory and check if plugin is already installed
 
-    package_name=$(echo $repo_url | xargs basename -s .git)
+    plugin_name=$(echo $repo_url | xargs basename -s .git)
     plugin_root=""
 
     if [[ $install_dir -eq "eager" ]]
     then
-        plugin_root="${pack_dir}/${package_name}/start" 
-        [[ -d $plugin_root ]] && die "plugin with name $package_name is already present at $plugin_root" 
+        plugin_root="${pack_dir}/${plugin_name}/start" 
+        [[ -d $plugin_root ]] && die "plugin with name $plugin_name is already present at $plugin_root" 
     else
-        plugin_root="${pack_dir}/${package_name}/opt"
-        [[ -d $plugin_root ]] && die "plugin with name $package_name is already present at $plugin_root" 
+        plugin_root="${pack_dir}/${plugin_name}/opt"
+        [[ -d $plugin_root ]] && die "plugin with name $plugin_name is already present at $plugin_root" 
     fi
 
     mkdir -p $plugin_root
@@ -172,7 +172,7 @@ install() {
         die "couldn't add cloned repo as submodule"
     fi
 
-    commit_plugin_state() $repo_root "installed ${plugin_name}"
+    commit_plugin_state $repo_root "installed ${plugin_name}"
 }
 
 ## UNINSTALL COMMAND ##
