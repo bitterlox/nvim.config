@@ -191,11 +191,18 @@ uninstall() {
 
     plugin_to_remove=$2
 
-    plugin_root="${pack_dir}/${plugin_to_remove}" 
+    plugin_root="${pack_dir}/${plugin_to_remove}"
+
+    if [[ -d "${plugin_root}/start" ]]
+    then
+        plugin_root+="/start"
+    else
+        plugin_root+="/opt"
+    fi
 
     [[ -d $plugin_root ]] || die "no plugin with name ${plugin_to_remove} found in ${pack_dir}"
 
-    echo "removing plugin ${plugin_name}"
+    echo "removing plugin ${plugin_to_remove}"
 
     git rm $plugin_root
     GIT_RM_STATUS=$?
@@ -221,7 +228,7 @@ uninstall() {
     [[ GIT_CONFIG_STATUS -eq 0 ]] || die "couldn't plugin directory from git config" 
 
 
-    echo "removed $plugin_name"
+    echo "removed $plugin_to_remove"
 
 
 }
