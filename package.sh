@@ -29,7 +29,7 @@
 ## USEFUL VARIABLES ##
 
 repo_root=$(pwd)
-pack_dir="./pack"
+pack_dir="pack"
 
 ## HELPER FUNCTIONS ##
 
