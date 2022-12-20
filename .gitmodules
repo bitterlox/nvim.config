@@ -1,3 +1,0 @@
-[submodule "pack/mason.nvim/start"]
-	path = pack/mason.nvim/start
-	url = https://github.com/williamboman/mason.nvim
