@@ -174,8 +174,6 @@ install() {
         [[ -d $plugin_root ]] && die "plugin with name $plugin_name is already present at $plugin_root" 
     fi
 
-    mkdir -p $plugin_root
-
     git submodule add $repo_url $plugin_root
     SUBMODULE_ADD_SUCCESSFUL=$?
 
