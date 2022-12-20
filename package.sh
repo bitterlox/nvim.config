@@ -52,8 +52,9 @@ GIT_IS_INSTALLED=$?
 
 min_version="2.39.0"
 
-if (echo min version $min_version; git --version) | sort -Vk3 | tail -1 | grep -q git
+if (echo a version $min_version; git --version) | sort -Vk3 | tail -1 | grep -q git
 then
+	echo "git version sufficent"
 else
 	die "git version not recent enough, wanted $min_version, got $(git --version)"
 fi
