@@ -10,17 +10,18 @@
 # √ - create a subdir in pack dir with plugin name and check if a plugin with the same name is already installed
 # √ - depending on subarg create opt (lazy) or start(eager) subdir
 # √ - clone plugin & add to git submodule (with pinned version)
-# √   - figure out how to pin the submodule to a commit that is tied to a specific branch
+# x   - figure out how to pin the submodule to a commit that is tied to a specific branch
 # √   - commit newly added plugin
 # x - generate documentation
 # x - if lazy loaded add a line to load the plugin?
 # x   - or maybe i prompt the user to review the order in which the plugins are loaded?
 # x   - or maybe i do this manually?
 # x handle remove command
-# x - check sub args (name of pkg to remove)
-# x - check if name of pkg is actually the name of an installed package (can use a fuzzy finder to do "did you mean *** ?")
-# x - do git rm to remove repo from tree
-# x - remove repo also from .git/modules and git config, see https://stackoverflow.com/questions/1260748/how-do-i-remove-a-submodule
+# √ - check sub args (name of pkg to remove)
+# √ - check if name of pkg is actually the name of an installed package (can use a fuzzy finder to do "did you mean *** ?")
+# √ - do git rm to remove repo from tree
+# √ - rm -rf to remove files
+# √ - remove repo also from .git/modules and git config, see https://stackoverflow.com/questions/1260748/how-do-i-remove-a-submodule
 # x - if was lazy linked, check and remove import lines
 # x handle the update command
 # x handle a command to do setup when repo is first cloned (fetch all submodules, and other eventual stuff)
@@ -152,14 +153,6 @@ install() {
     latest_tagged_version=$(echo ${latest_tag_msg} | cut -d / -f 3 | sed -e "s/\^{}$//")
     latest_tag_commit=$(echo ${latest_tag_msg} | cut -d ' ' -f 1)
 
-       if [[ $latest_tagged_version -eq "" && $latest_tag_commit -eq "" ]]
-    then
-        echo "no tags found, pinning to HEAD"
-    else
-        echo $latest_tagged_version
-        echo $latest_tag_commit
-    fi
-
     # create plugin directory and check if plugin is already installed
 
     plugin_name=$(echo $repo_url | xargs basename -s .git)
@@ -182,7 +175,19 @@ install() {
         die "couldn't add cloned repo as submodule"
     fi
 
-    commit_plugin_state "installed ${plugin_name}"
+    if [[ $latest_tagged_version -eq "" && $latest_tag_commit -eq "" ]]
+    then
+        echo "no tags found, pinning to HEAD"
+
+        commit_plugin_state "installed ${plugin_name} at HEAD"
+    else
+        cd $plugin_root
+	
+	git checkout $latest_tag_commit
+
+        commit_plugin_state "installed ${plugin_name} at version $latest_tagged_version"
+    fi
+
 }
 
 ## UNINSTALL COMMAND ##
