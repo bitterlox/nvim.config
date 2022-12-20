@@ -19,17 +19,51 @@
 # x handle remove command
 # x - check sub args (name of pkg to remove)
 # x - check if name of pkg is actually the name of an installed package (can use a fuzzy finder to do "did you mean *** ?")
-# x - unlink from git submodule, delete dir?
+# x - do git rm to remove repo from tree
+# x - remove repo also from .git/modules and git config, see https://stackoverflow.com/questions/1260748/how-do-i-remove-a-submodule
 # x - if was lazy linked, check and remove import lines
 # x handle the update command
 # x handle a command to do setup when repo is first cloned (fetch all submodules, and other eventual stuff)
+# x handle a clean command that cleans up .git/modules from module repos from plugins that have been removed
 
 ## USEFUL VARIABLES ##
 
+repo_root=$(pwd)
+pack_dir="${repo_root}/pack"
+
+## HELPER FUNCTIONS ##
+
+die () {
+    echo >&2 "$@"
+    exit 1
+}
+
+check_git_install() {
+
+
+# check git is installed
+
+git --version > /dev/null 2>&1 # discard output
+GIT_IS_INSTALLED=$?
+
+[[ GIT_IS_INSTALLED ]] || die "git is not installed on this system"
+
+# check git version
+
+min_version="2.39.0"
+
+if (echo min version $min_version; git --version) | sort -Vk3 | tail -1 | grep -q git
+then
+else
+	die "git version not recent enough, wanted $min_version, got $(git --version)"
+fi
+
+
+}
+
 commit_plugin_state() {
 
-    repo_root=$1
-    message=$2
+    message=$1
 
     git add "${repo_root}/pack" 
     git add "${repo_root}/.gitmodules"
@@ -44,19 +78,9 @@ commit_plugin_state() {
 
 }
 
-## USEFUL VARIABLES ##
-
-repo_root=$(pwd)
-pack_dir="${repo_root}/pack"
-
 ## PRE-COMMAND CHECKS ##
 
 # check parameters
-
-die () {
-    echo >&2 "$@"
-    exit 1
-}
 
 # check we've got some arguments passed in
 
@@ -73,12 +97,9 @@ then
      mkdir $pack_dir
 fi
 
-# check git is installed
+# check git install
 
-git --version > /dev/null 2>&1 # discard output
-GIT_IS_INSTALLED=$?
-
-[[ GIT_IS_INSTALLED ]] || die "git is not installed on this system"
+check_git_install
 
 # check ripgrep is installed
 
@@ -154,16 +175,6 @@ install() {
 
     mkdir -p $plugin_root
 
-    git clone $repo_url $plugin_root
-    CLONE_SUCCESSFUL=$?
-
-    if [[ ! CLONE_SUCCESSFUL -eq 0 ]] 
-    then
-        die "couldn't clone plugin repo"
-    fi
-
-    echo "successfully cloned plugin"
-    
     git submodule add $repo_url $plugin_root
     SUBMODULE_ADD_SUCCESSFUL=$?
 
@@ -172,12 +183,48 @@ install() {
         die "couldn't add cloned repo as submodule"
     fi
 
-    commit_plugin_state $repo_root "installed ${plugin_name}"
+    commit_plugin_state "installed ${plugin_name}"
 }
 
 ## UNINSTALL COMMAND ##
 uninstall() {
-    echo "uninstall called with $@" 
+    echo "uninstall called with $@"
+
+    plugin_to_remove=$2
+
+    plugin_root="${pack_dir}/${plugin_to_remove}" 
+
+    [[ -d $plugin_root ]] || die "no plugin with name ${plugin_to_remove} found in ${pack_dir}"
+
+    echo "removing plugin ${plugin_name}"
+
+    git rm $plugin_root
+    GIT_RM_STATUS=$?
+
+    [[ GIT_RM_STATUS -eq 0 ]] || die "couldn't git rm plugin directory" 
+
+    rm -rf $plugin_root
+    RM_STATUS=$?
+
+    [[ RM_STATUS -eq 0 ]] || die "couldn't delete plugin directory"
+
+    commit_plugin_state "removed $plugin_to_remove"
+
+    rm -rf ".git/modules/${plugin_root}"
+    RM_STATUS=$?
+
+    [[ RM_STATUS -eq 0 ]] || die "couldn't git rm .git/modules plugin directory" 
+
+
+    git config --remove-section "submodule.${plugin_root}"
+    GIT_CONFIG_STATUS=$?
+
+    [[ GIT_CONFIG_STATUS -eq 0 ]] || die "couldn't plugin directory from git config" 
+
+
+    echo "removed $plugin_name"
+
+
 }
 
 ## UPDATE COMMAND ##
