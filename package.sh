@@ -175,6 +175,9 @@ install() {
         die "couldn't add cloned repo as submodule"
     fi
 
+
+    # need more robust way to get tags
+
     if [[ $latest_tagged_version -eq "" && $latest_tag_commit -eq "" ]]
     then
         echo "no tags found, pinning to HEAD"
