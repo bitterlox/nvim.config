@@ -48,6 +48,50 @@ die () {
     exit 1
 }
 
+add_to_file() {
+
+filepath=$1
+message=$2
+
+echo $@
+echo $(ls)
+
+# todo use single brackets
+# this doesn't work for some reason, even tho the file exists
+#if [[ ! -e filepath ]]
+#then
+#    die "no file present at '$filepath'"
+#fi
+
+if [[ message -eq "" ]]
+then
+    die "message is empty"
+fi
+
+echo $message >> $filepath
+
+}
+
+remove_from_file() {
+
+filepath=$1
+pattern=$2
+
+# this doesn't work for some reason, even tho the file exists
+#if [[ ! -e filepath ]]
+#then
+#    die "no file present at '$filepath'"
+#fi
+
+if [[ pattern -eq "" ]]
+then
+    die "pattern is empty"
+fi
+grep -v $pattern $filepath > ./tmp
+mv tmp $pattern 
+
+}
+
 check_git_install() {
 
 
@@ -107,11 +151,15 @@ then
      mkdir -p $plugins_dir
 fi
 
+# check lua directory, if not found create
+
 if [[ ! -d $lua_dir ]]
 then
      echo "creating ./$lua_dir directory"
      mkdir -p $lua_dir
 fi
+
+# check lua package directory
 
 if [[ ! -d $lua_package_dir ]]
 then
@@ -121,22 +169,30 @@ fi
 
 # check initfile is present
 
-[[ -f init.lua ]] || touch init.lua
+if [[ ! -f init.lua ]]
+then
+    touch init.lua
+    add_to_file "init.lua" "require('package')"
+fi
 
-grep -E "^require\('package'\)$" init.lua
+grep -E "^require\('package'\)$" init.lua > /dev/null 2>&1
 FOUND=$?
 
-echo "found line in init.lua $FOUND"
+[[ FOUND -eq 0 ]] || die "missing import for 'package' from init.lua"
 
 package_module_file="$lua_package_dir/init.lua"
-[[ -f $package_module_file ]] || touch  $package_module_file
+if [[ ! -f $package_module_file ]]
+then
+    touch $package_module_file
+    echo $package_module_file "vim.cmd(':helptags ALL')" 
+fi
 
 # check if init.lua imports custom script-generated init file
 
-grep -E "^vim\.cmd\(':helptags ALL'\)$" $package_module_file
+grep -E "^vim\.cmd\(':helptags ALL'\)$" $package_module_file > /dev/null 2>&1
 FOUND=$?
 
-echo "found line package $FOUND"
+[[ FOUND -eq 0 ]] || die "missing helptags gen command from package module file"
 
 # check git install
 
