@@ -26,11 +26,20 @@
 # x - if was lazy linked, check and remove import lines
 # x handle the update command
 # x handle a command to do setup when repo is first cloned (fetch all submodules, and other eventual stuff)
+#
+# TODO REFACTORING:
+# - split the "prelude checks" part in 4 functions:
+#  - check tools are installed (and that they are of the desired versions)
+#  - check directories we need are present
+#  - check that files in those directories are present
+#  - check that the content of those files is congruent with what we expect
 
 ## USEFUL VARIABLES ##
 
 repo_root=$(pwd)
 plugins_dir="pack/plugins"
+lua_dir="lua"
+lua_package_dir="$lua_dir/package"
 
 ## HELPER FUNCTIONS ##
 
@@ -59,7 +68,6 @@ then
 else
 	die "git version not recent enough, wanted $min_version, got $(git --version)"
 fi
-
 
 }
 
@@ -98,6 +106,37 @@ then
      echo "creating ./pack directory"
      mkdir -p $plugins_dir
 fi
+
+if [[ ! -d $lua_dir ]]
+then
+     echo "creating ./$lua_dir directory"
+     mkdir -p $lua_dir
+fi
+
+if [[ ! -d $lua_package_dir ]]
+then
+     echo "creating ./$lua_package_dir directory"
+     mkdir -p $lua_package_dir
+fi
+
+# check initfile is present
+
+[[ -f init.lua ]] || touch init.lua
+
+grep -E "^require\('package'\)$" init.lua
+FOUND=$?
+
+echo "found line in init.lua $FOUND"
+
+package_module_file="$lua_package_dir/init.lua"
+[[ -f $package_module_file ]] || touch  $package_module_file
+
+# check if init.lua imports custom script-generated init file
+
+grep -E "^vim\.cmd\(':helptags ALL'\)$" $package_module_file
+FOUND=$?
+
+echo "found line package $FOUND"
 
 # check git install
 
