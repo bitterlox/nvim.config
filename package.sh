@@ -30,7 +30,7 @@
 ## USEFUL VARIABLES ##
 
 repo_root=$(pwd)
-pack_dir="pack"
+pack_dir="pack/plugins"
 
 ## HELPER FUNCTIONS ##
 
@@ -96,7 +96,7 @@ fi
 if [[ ! -d $pack_dir ]]
 then
      echo "creating ./pack directory"
-     mkdir $pack_dir
+     mkdir -p $pack_dir
 fi
 
 # check git install
