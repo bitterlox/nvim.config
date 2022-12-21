@@ -184,7 +184,10 @@ install() {
     else
         cd $plugin_root
 	
-	git checkout $latest_tagged_version
+	git checkout $latest_tagged_version > /dev/null 2>&1
+	STATUS=$?
+
+	[[ STATUS -eq 0 ]] || die "couldn't checkout the $latest_tagged_version tag"
 
         cd $repo_root
 
@@ -199,25 +202,16 @@ uninstall() {
 
     plugin_to_remove=$2
 
-    plugin_root=""
+    plugin_dir=""
 
     if [[ -d "${pack_dir}/start/${plugin_to_remove}" ]]
     then 
-        plugin_root="${pack_dir}/start/${plugin_to_remove}"
+        plugin_dir="${pack_dir}/start/${plugin_to_remove}"
     elif [[ -d "${pack_dir}/opt/${plugin_to_remove}" ]]
     then 
-        plugin_root="${pack_dir}/opt/${plugin_to_remove}"
+        plugin_dir="${pack_dir}/opt/${plugin_to_remove}"
     else
         die "no plugin with name ${plugin_to_remove} found in ${pack_dir}"
-    fi
-
-    plugin_dir="$plugin_root"
-
-    if [[ -d "${plugin_root}/start" ]]
-    then
-        plugin_dir+="/start"
-    else
-        plugin_dir+="/opt"
     fi
 
     echo "removing plugin ${plugin_to_remove}"
@@ -227,7 +221,7 @@ uninstall() {
 
     [[ GIT_RM_STATUS -eq 0 ]] || die "couldn't git rm plugin directory" 
 
-    rm -rf $plugin_root
+    rm -rf $plugin_dir
     RM_STATUS=$?
 
     [[ RM_STATUS -eq 0 ]] || die "couldn't delete plugin directory"
