@@ -153,10 +153,10 @@ install() {
 
     if [[ $install_dir -eq "eager" ]]
     then
-        plugin_root="${pack_dir}/${plugin_name}/start" 
+        plugin_root="${pack_dir}/start/${plugin_name}" 
         [[ -d $plugin_root ]] && die "plugin with name $plugin_name is already present at $plugin_root" 
     else
-        plugin_root="${pack_dir}/${plugin_name}/opt"
+        plugin_root="${pack_dir}/opt/${plugin_name}"
         [[ -d $plugin_root ]] && die "plugin with name $plugin_name is already present at $plugin_root" 
     fi
 
@@ -199,9 +199,17 @@ uninstall() {
 
     plugin_to_remove=$2
 
-    plugin_root="${pack_dir}/${plugin_to_remove}"
+    plugin_root=""
 
-    [[ -d $plugin_root ]] || die "no plugin with name ${plugin_to_remove} found in ${pack_dir}"
+    if [[ -d "${pack_dir}/start/${plugin_to_remove}" ]]
+    then 
+        plugin_root="${pack_dir}/start/${plugin_to_remove}"
+    elif [[ -d "${pack_dir}/opt/${plugin_to_remove}" ]]
+    then 
+        plugin_root="${pack_dir}/opt/${plugin_to_remove}"
+    else
+        die "no plugin with name ${plugin_to_remove} found in ${pack_dir}"
+    fi
 
     plugin_dir="$plugin_root"
 
