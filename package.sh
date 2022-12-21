@@ -6,11 +6,12 @@
 # √ check git repository, if not found init (and init submodules) 
 # x handle install command
 # √ - check for sub-args (eager or lazy load plugin, repo url)
+# x - add optional sub arg that pins a plugin to head even though it's got a tag
 # √ - invoke a git command to see if repo exists &or is clonable
 # √ - create a subdir in pack dir with plugin name and check if a plugin with the same name is already installed
 # √ - depending on subarg create opt (lazy) or start(eager) subdir
 # √ - clone plugin & add to git submodule (with pinned version)
-# x   - figure out how to pin the submodule to a commit that is tied to a specific branch
+# √   - figure out how to pin the submodule to a commit that is tied to a specific branch
 # √   - commit newly added plugin
 # x - generate documentation
 # x - if lazy loaded add a line to load the plugin?
@@ -25,7 +26,6 @@
 # x - if was lazy linked, check and remove import lines
 # x handle the update command
 # x handle a command to do setup when repo is first cloned (fetch all submodules, and other eventual stuff)
-# x handle a clean command that cleans up .git/modules from module repos from plugins that have been removed
 
 ## USEFUL VARIABLES ##
 
