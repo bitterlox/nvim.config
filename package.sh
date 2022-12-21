@@ -30,7 +30,7 @@
 ## USEFUL VARIABLES ##
 
 repo_root=$(pwd)
-pack_dir="pack/plugins"
+plugins_dir="pack/plugins"
 
 ## HELPER FUNCTIONS ##
 
@@ -93,10 +93,10 @@ fi
 
 # check pack directory, if not found create
 
-if [[ ! -d $pack_dir ]]
+if [[ ! -d $plugins_dir ]]
 then
      echo "creating ./pack directory"
-     mkdir -p $pack_dir
+     mkdir -p $plugins_dir
 fi
 
 # check git install
@@ -153,10 +153,10 @@ install() {
 
     if [[ $install_dir -eq "eager" ]]
     then
-        plugin_root="${pack_dir}/start/${plugin_name}" 
+        plugin_root="${plugins_dir}/start/${plugin_name}" 
         [[ -d $plugin_root ]] && die "plugin with name $plugin_name is already present at $plugin_root" 
     else
-        plugin_root="${pack_dir}/opt/${plugin_name}"
+        plugin_root="${plugins_dir}/opt/${plugin_name}"
         [[ -d $plugin_root ]] && die "plugin with name $plugin_name is already present at $plugin_root" 
     fi
 
@@ -204,14 +204,14 @@ uninstall() {
 
     plugin_dir=""
 
-    if [[ -d "${pack_dir}/start/${plugin_to_remove}" ]]
+    if [[ -d "${plugins_dir}/start/${plugin_to_remove}" ]]
     then 
-        plugin_dir="${pack_dir}/start/${plugin_to_remove}"
-    elif [[ -d "${pack_dir}/opt/${plugin_to_remove}" ]]
+        plugin_dir="${plugins_dir}/start/${plugin_to_remove}"
+    elif [[ -d "${plugins_dir}/opt/${plugin_to_remove}" ]]
     then 
-        plugin_dir="${pack_dir}/opt/${plugin_to_remove}"
+        plugin_dir="${plugins_dir}/opt/${plugin_to_remove}"
     else
-        die "no plugin with name ${plugin_to_remove} found in ${pack_dir}"
+        die "no plugin with name ${plugin_to_remove} found in ${plugins_dir}"
     fi
 
     echo "removing plugin ${plugin_to_remove}"
@@ -228,7 +228,7 @@ uninstall() {
 
     commit_plugin_state "removed $plugin_to_remove"
 
-    rm -rf ".git/modules/${pack_dir}/${plugin_to_remove}"
+    rm -rf ".git/modules/${plugins_dir}/${plugin_to_remove}"
     RM_STATUS=$?
 
     [[ RM_STATUS -eq 0 ]] || die "couldn't git rm .git/modules plugin directory" 
