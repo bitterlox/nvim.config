@@ -40,6 +40,7 @@ repo_root=$(pwd)
 plugins_dir="pack/plugins"
 lua_dir="lua"
 lua_package_dir="$lua_dir/package"
+package_module_file="$lua_package_dir/init.lua"
 
 ## HELPER FUNCTIONS ##
 
@@ -55,15 +56,17 @@ message=$2
 
 echo $@
 echo $(ls)
+test -f $filepath
+echo $?
 
-# todo use single brackets
+
 # this doesn't work for some reason, even tho the file exists
-#if [[ ! -e filepath ]]
-#then
-#    die "no file present at '$filepath'"
-#fi
+if [[ ! -f $filepath ]]
+then
+    die "no file present at '$filepath'"
+fi
 
-if [[ message -eq "" ]]
+if [[ -z "$message" ]]
 then
     die "message is empty"
 fi
@@ -77,18 +80,17 @@ remove_from_file() {
 filepath=$1
 pattern=$2
 
-# this doesn't work for some reason, even tho the file exists
-#if [[ ! -e filepath ]]
-#then
-#    die "no file present at '$filepath'"
-#fi
+if [[ ! -f $filepath ]]
+then
+    die "no file present at '$filepath'"
+fi
 
-if [[ pattern -eq "" ]]
+if [[ -z "$pattern" ]]
 then
     die "pattern is empty"
 fi
 grep -v $pattern $filepath > ./tmp
-mv tmp $pattern 
+mv tmp $filepath
 
 }
 
@@ -180,11 +182,10 @@ FOUND=$?
 
 [[ FOUND -eq 0 ]] || die "missing import for 'package' from init.lua"
 
-package_module_file="$lua_package_dir/init.lua"
 if [[ ! -f $package_module_file ]]
 then
     touch $package_module_file
-    echo $package_module_file "vim.cmd(':helptags ALL')" 
+    add_to_file $package_module_file "vim.cmd(':helptags ALL')" 
 fi
 
 # check if init.lua imports custom script-generated init file
@@ -264,7 +265,15 @@ install() {
     fi
 
 
-    # need more robust way to get tags
+    echo $plugin_root | grep "opt" > /dev/null 2>&1
+    STATUS=$?
+
+    if [[ $STATUS -eq 0 ]]
+    then
+	    add_to_file $package_module_file "vim.cmd('packadd $plugin_name')"
+    fi
+
+    
     
     latest_tagged_version=$(cd $plugin_root && git describe --abbrev=0 --tags)
     STATUS=$?
@@ -332,12 +341,17 @@ uninstall() {
     git config --remove-section "submodule.${plugin_dir}"
     GIT_CONFIG_STATUS=$?
 
-    [[ GIT_CONFIG_STATUS -eq 0 ]] || die "couldn't remove plugin directory from git config" 
+    [[ GIT_CONFIG_STATUS -eq 0 ]] || die "couldn't remove plugin directory from git config"
 
+    echo $plugin_dir | grep "opt" > /dev/null 2>&1
+    STATUS=$?
+
+    if [[ $STATUS -eq 0 ]]
+    then
+        remove_from_file $package_module_file "$plugin_name"
+    fi
 
     echo "removed $plugin_to_remove"
-
-
 }
 
 ## UPDATE COMMAND ##
