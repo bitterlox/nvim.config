@@ -95,23 +95,23 @@ filename="init.lua"
 
 touch $filename
 
-printf "%s\n" "require('package')" >> init.lua
+printf "%s\n" "local setup = require('package.setup')" >> init.lua
 printf "\n" >> init.lua
-printf "%s\n" "package.setupPlugins()" >> init.lua
+printf "%s\n" "setup.plugins()" >> init.lua
 
 }
 
 validate_init() {
 
-grep -E "^require\('package'\)$" init.lua > /dev/null 2>&1
+grep -E "^local setup = require\('package.setup'\)$" init.lua > /dev/null 2>&1
 FOUND=$?
 
-[[ FOUND -eq 0 ]] || die "missing import for 'package' from init.lua"
+[[ FOUND -eq 0 ]] || die "missing import for 'package.setup' from init.lua"
 
-grep -E "^package\.setupPlugins\(\)$" init.lua > /dev/null 2>&1
+grep -E "^setup\.plugins\(\)$" init.lua > /dev/null 2>&1
 FOUND=$?
 
-[[ FOUND -eq 0 ]] || die "missing call to setupPugins() from init.lua"
+[[ FOUND -eq 0 ]] || die "missing call to setup.plugins() from init.lua"
 
 }
 
@@ -119,16 +119,17 @@ setup_package_module() {
 
 touch $package_module_file
 
-printf "%s\n" "local function setupPlugins()" >> $package_module_file
-printf "%s\n" "    vim.cmd(':helptags ALL')" >> $package_module_file
+printf "%s\n" "local M = {}" >> $package_module_file
+printf "%s\n" "function M.plugins()" >> $package_module_file
+printf "%s\n" "    vim.cmd('helptags ALL')" >> $package_module_file
 printf "%s\n" "end" >> $package_module_file
-printf "%s" "return { setupPlugins: setupPlugins }" >> $package_module_file
+printf "%s" "return M" >> $package_module_file
 
 }
 
 validate_package_module() {
 
-grep -E "vim\.cmd\(':helptags ALL'\)" $package_module_file > /dev/null 2>&1
+grep -E "vim\.cmd\('helptags ALL'\)" $package_module_file > /dev/null 2>&1
 FOUND=$?
 
 [[ FOUND -eq 0 ]] || die "missing helptags gen command from package module file"
