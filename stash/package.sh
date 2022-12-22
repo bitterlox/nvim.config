@@ -242,14 +242,14 @@ then
     setup_init_file    
 fi
 
-validate_init
+#validate_init
 
 if [[ ! -f $package_module_file ]]
 then
     setup_package_module
 fi
 
-validate_package_module
+#validate_package_module
 
 # check git install
 
