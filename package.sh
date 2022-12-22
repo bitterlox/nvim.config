@@ -389,7 +389,7 @@ uninstall() {
 
     commit_plugin_state "removed $plugin_to_remove"
 
-    rm -rf ".git/modules/${plugins_dir}/${plugin_to_remove}"
+    rm -rf ".git/modules/${plugin_dir}"
     RM_STATUS=$?
 
     [[ RM_STATUS -eq 0 ]] || die "couldn't git rm .git/modules plugin directory" 
