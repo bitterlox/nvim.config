@@ -54,12 +54,6 @@ add_to_file() {
 filepath=$1
 message=$2
 
-echo $@
-echo $(ls)
-test -f $filepath
-echo $?
-
-
 # this doesn't work for some reason, even tho the file exists
 if [[ ! -f $filepath ]]
 then
@@ -71,7 +65,8 @@ then
     die "message is empty"
 fi
 
-echo $message >> $filepath
+# echo -e turns \n' into a newline
+printf "%s" "$message" >> $filepath
 
 }
 
@@ -92,6 +87,76 @@ fi
 grep -v $pattern $filepath > ./tmp
 mv tmp $filepath
 
+}
+
+setup_init_file() {
+
+filename="init.lua"
+
+touch $filename
+
+printf "%s\n" "require('package')" >> init.lua
+printf "\n" >> init.lua
+printf "%s\n" "package.setupPlugins()" >> init.lua
+
+}
+
+validate_init() {
+
+grep -E "^require\('package'\)$" init.lua > /dev/null 2>&1
+FOUND=$?
+
+[[ FOUND -eq 0 ]] || die "missing import for 'package' from init.lua"
+
+grep -E "^package\.setupPlugins\(\)$" init.lua > /dev/null 2>&1
+FOUND=$?
+
+[[ FOUND -eq 0 ]] || die "missing call to setupPugins() from init.lua"
+
+}
+
+setup_package_module() {
+
+touch $package_module_file
+
+printf "%s\n" "local function setupPlugins()" >> $package_module_file
+printf "%s\n" "    vim.cmd(':helptags ALL')" >> $package_module_file
+printf "%s\n" "end" >> $package_module_file
+printf "%s" "return { setupPlugins: setupPlugins }" >> $package_module_file
+
+}
+
+validate_package_module() {
+
+grep -E "vim\.cmd\(':helptags ALL'\)" $package_module_file > /dev/null 2>&1
+FOUND=$?
+
+[[ FOUND -eq 0 ]] || die "missing helptags gen command from package module file"
+
+}
+
+add_dynamic_import() {
+
+# add new module lua/plugins/importfuns/{plugin_name}
+# - default content of this is a single 'import' function that just does a packadd
+# add require in lua/plugins/init.lua for that module
+# call that import function (before documentation gen)
+
+
+# can use grep -n to get line number of match
+# and then can use sed line addressing https://stackoverflow.com/questions/9533679/how-to-insert-a-text-at-the-beginning-of-a-file
+
+echo noop
+}
+
+remove_dynamic_import() {
+
+# remove module lua/plugins/importfuns/{plugin_name}
+# delete require in lua/plugins/init.lua for that module
+# delete the call to that import function (before documentation gen)
+
+
+echo noop
 }
 
 check_git_install() {
@@ -173,27 +238,17 @@ fi
 
 if [[ ! -f init.lua ]]
 then
-    touch init.lua
-    add_to_file "init.lua" "require('package')"
+    setup_init_file    
 fi
 
-grep -E "^require\('package'\)$" init.lua > /dev/null 2>&1
-FOUND=$?
-
-[[ FOUND -eq 0 ]] || die "missing import for 'package' from init.lua"
+validate_init
 
 if [[ ! -f $package_module_file ]]
 then
-    touch $package_module_file
-    add_to_file $package_module_file "vim.cmd(':helptags ALL')" 
+    setup_package_module
 fi
 
-# check if init.lua imports custom script-generated init file
-
-grep -E "^vim\.cmd\(':helptags ALL'\)$" $package_module_file > /dev/null 2>&1
-FOUND=$?
-
-[[ FOUND -eq 0 ]] || die "missing helptags gen command from package module file"
+validate_package_module
 
 # check git install
 
@@ -265,8 +320,10 @@ install() {
     fi
 
 
-    echo $plugin_root | grep "opt" > /dev/null 2>&1
+    echo $plugin_root | grep "opt" 
     STATUS=$?
+
+    echo found $STATUS
 
     if [[ $STATUS -eq 0 ]]
     then
