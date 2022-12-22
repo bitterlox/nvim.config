@@ -1,0 +1,6 @@
+{
+  "lazy.nvim": { "branch": "main", "commit": "fb8287c73d9a169e7cdb5d41a43e38183ba285fa" },
+  "plenary.nvim": { "branch": "master", "commit": "4b7e52044bbb84242158d977a50c4cbcd85070c7" },
+  "rose-pine": { "branch": "main", "commit": "7610f245821e98232e7ee8dcbf3364725807187d" },
+  "telescope.nvim": { "branch": "master", "commit": "e960efa60e97df58e089b00270f09d60f27202c8" }
+}
