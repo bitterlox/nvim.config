@@ -1,2 +1,4 @@
 vim.g.mapleader = " "
-vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
+
+-- leader mappings
+vim.keymap.set("n", "<leader>nrw", vim.cmd.Ex)

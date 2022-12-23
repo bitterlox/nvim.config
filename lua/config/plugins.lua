@@ -4,8 +4,14 @@ return {
     {
         "rose-pine/neovim",
 	name = "rose-pine",
-	config = function()
-            vim.cmd.colorscheme("rose-pine")
-	end
-    }
+    },
+    "rebelot/kanagawa.nvim",
+    "Yazeed1s/minimal.nvim",
+    "sainnhe/sonokai",
+    {
+    "nvim-treesitter/nvim-treesitter",
+    config = function () 
+            vim.cmd(":TSUpdate")
+    end
+    },
 }
