@@ -21,4 +21,24 @@ return {
     "nvim-treesitter/playground",
     "mbbill/undotree",
     "tpope/vim-fugitive",
+    {
+    "williamboman/mason.nvim",
+    lazy = false,
+    config = function () 
+            require("mason").setup()
+    end
+    },
+    {
+    "williamboman/mason-lspconfig.nvim",
+    lazy = false,
+    config = function () 
+        require("mason-lspconfig").setup({
+            ensure_installed = { "sumneko_lua", "rust_analyzer", "gopls", "tsserver" }
+	})
+    end
+    },
+    {
+    "neovim/nvim-lspconfig",
+    lazy = false,
+    },
 }
