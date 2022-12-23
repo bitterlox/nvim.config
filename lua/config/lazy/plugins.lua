@@ -1,3 +1,7 @@
+-- split this up into multiple modules
+-- ideally one per plugin + dependencies
+-- (or one that groups all the color schemes for example)
+-- and then they all get merged into one in this file
 return {
     "nvim-lua/plenary.nvim",
     "nvim-telescope/telescope.nvim",
@@ -14,4 +18,7 @@ return {
             vim.cmd(":TSUpdate")
     end
     },
+    "nvim-treesitter/playground",
+    "mbbill/undotree",
+    "tpope/vim-fugitive",
 }
