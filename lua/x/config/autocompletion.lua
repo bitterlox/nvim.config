@@ -1,4 +1,4 @@
--- Set up nvim-cmp.
+-- Set up nvim-cmp
   local cmp = require'cmp'
 
   cmp.setup({
@@ -29,13 +29,13 @@
   })
 
   -- Set configuration for specific filetype.
-  cmp.setup.filetype('gitcommit', {
-    sources = cmp.config.sources({
-      { name = 'cmp_git' }, -- You can specify the `cmp_git` source if you were installed it.
-    }, {
-      { name = 'buffer' },
-    })
-  })
+--cmp.setup.filetype('gitcommit', {
+--  sources = cmp.config.sources({
+--    { name = 'cmp_git' }, -- You can specify the `cmp_git` source if you were installed it.
+--  }, {
+--    { name = 'buffer' },
+--  })
+--})
 
   -- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
   cmp.setup.cmdline({ '/', '?' }, {
@@ -56,12 +56,4 @@
   })
 
 
-  -- Set up lspconfig.
-  local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
-  local servers = { "sumneko_lua", "rust_analyzer", "gopls", "tsserver" }
-  for _, lsp in ipairs(servers) do
-          require('lspconfig')[lsp].setup({
-              capabilities = capabilities
-	  })
-  end
