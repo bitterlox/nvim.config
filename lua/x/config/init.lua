@@ -2,7 +2,7 @@ require('x.config.remaps')
 
 require('x.config.diagnostic')
 
-require('x.config.colors')
+require('x.config.themes')
 
--- todo: split out general editor config like remaps, leader mappings etc, and keep those in this module
--- while putting plugin specific stuff in a separate module
+require('x.config.plugins')
+
