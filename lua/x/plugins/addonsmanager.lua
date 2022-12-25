@@ -9,13 +9,9 @@ return {
     {
     "williamboman/mason.nvim",
     lazy = false,
-    config = function ()
-    end
     },
     {
     "williamboman/mason-lspconfig.nvim",
     lazy = false,
-    config = function ()
-	    end
     },
 }
