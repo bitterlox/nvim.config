@@ -10,6 +10,9 @@
         require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
       end,
     },
+    experimental = {
+        ghost_text = true,
+    },
     window = {
       -- completion = cmp.config.window.bordered(),
       -- documentation = cmp.config.window.bordered(),
@@ -28,7 +31,7 @@
       -- stop completion
       ['<C-e>'] = cmp.mapping.abort(),
       -- accept selected completion suggestion (also enter key works for this)
-      ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+      ['<C>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
     }),
     sources = cmp.config.sources({
       { name = 'nvim_lsp' },

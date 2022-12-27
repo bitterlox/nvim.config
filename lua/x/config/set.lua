@@ -5,6 +5,7 @@ vim.opt.nu = true
 vim.opt.relativenumber = true
 
 
+
 -- indentation --
 -- https://vim.fandom.com/wiki/Indenting_source_code
 vim.opt.expandtab = true

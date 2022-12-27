@@ -55,7 +55,7 @@ require('lazy').setup(toinstall, {})
 --  - go: gofmt, goimports,
 --  - rust: rustfmt,
 --  - shells: shellharden,
---  - vim: vint???,
+--  - vim
 --  - html: ???,
 --  - css: ???,
 
