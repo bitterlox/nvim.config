@@ -41,4 +41,22 @@ require('lazy').setup(toinstall, {})
 
 --
 
+-- install ale, with
+-- linters:
+--  - js/ts: eslint
+--  - go: lsp,
+--  - rust: lsp,
+--  - shells: shellcheck,
+--  - vim: lsp + vint,
+--  - html: ???,
+--  - css: ???,
+-- fixers:
+--  - js/ts: prettier,
+--  - go: gofmt, goimports,
+--  - rust: rustfmt,
+--  - shells: shellharden,
+--  - vim: vint???,
+--  - html: ???,
+--  - css: ???,
+
 require('x.config')

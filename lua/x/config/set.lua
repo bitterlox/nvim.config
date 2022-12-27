@@ -11,6 +11,9 @@ vim.opt.expandtab = true
 vim.opt.softtabstop = 2
 vim.opt.shiftwidth = 2
 vim.opt.smartindent = true
+
+-- folding --
+vim.opt.foldmethod = "indent"
 vim.opt.foldlevel = 0
 
 -- disable line wrapping
