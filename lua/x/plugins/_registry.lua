@@ -1,12 +1,12 @@
 local telescope = require "x.plugins.telescope"
 local treesitter = require "x.plugins.treesitter"
 local themes = require "x.plugins.themes"
-local fugitive = require "x.plugins.fugitive"
+local tpope = require "x.plugins.tpope"
 local mason = require "x.plugins.mason"
 local lspconfig = require "x.plugins.lspconfig"
 local nvimcmp = require "x.plugins.nvimcmp"
 local luasnip = require "x.plugins.luasnip"
-
+local visualstarsearch = require "x.plugins.visualstarsearch"
 
 return {
     -- fuzzy finder
@@ -15,8 +15,8 @@ return {
     treesitter,
     -- themes
     themes,
-    -- git client
-    fugitive,
+    -- various plugins by tpope
+    tpope,
     -- addons manager
     mason,
     -- lsp-config
@@ -25,4 +25,6 @@ return {
     nvimcmp,
     -- luasnip
     luasnip,
+    -- search for visually highlighted text
+    visualstarsearch,
 }

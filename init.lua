@@ -31,7 +31,7 @@ for i = #plugins,1,-1 do
 		validatedpkgs[j] = pkg
 	end
 	-- can modify plugin tables en-masse
-	validatedpkgs[j].pin = true
+  	validatedpkgs[j].pin = true
   end
 
   vim.list_extend(toinstall, validatedpkgs)
