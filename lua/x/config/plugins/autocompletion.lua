@@ -31,7 +31,7 @@
       -- stop completion
       ['<C-e>'] = cmp.mapping.abort(),
       -- accept selected completion suggestion (also enter key works for this)
-      ['<C>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+      ['<Tab>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
     }),
     sources = cmp.config.sources({
       { name = 'nvim_lsp' },
