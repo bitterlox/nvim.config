@@ -15,7 +15,7 @@ vim.opt.smartindent = true
 
 -- folding --
 vim.opt.foldmethod = "indent"
-vim.opt.foldlevel = 0
+vim.opt.foldlevel = 100
 
 -- disable line wrapping
 vim.opt.wrap = false
