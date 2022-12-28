@@ -41,6 +41,7 @@ require('lazy').setup(toinstall, {})
 
 --
 
+-- maybe don't install ale, but get formatting capabilities from like, lsp-lua
 -- install ale, with
 -- linters:
 --  - js/ts: eslint
@@ -58,5 +59,7 @@ require('lazy').setup(toinstall, {})
 --  - vim
 --  - html: ???,
 --  - css: ???,
+-- add proper go dev env, see that guy's nvim config i found
+-- and this https://github.com/numToStr/Navigator.nvim
 
 require('x.config')

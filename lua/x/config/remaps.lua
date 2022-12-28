@@ -1,5 +1,6 @@
 -- leader mappings
-vim.keymap.set("n", "<leader>q", vim.cmd.q)
+vim.keymap.set("n", "<leader>wq", vim.cmd.wq)
+vim.keymap.set("n", "<leader>cc", vim.cmd.close)
 
 vim.keymap.set("n", "<leader>nrw", vim.cmd.Ex)
 

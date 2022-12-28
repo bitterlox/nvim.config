@@ -7,6 +7,7 @@ local lspconfig = require "x.plugins.lspconfig"
 local nvimcmp = require "x.plugins.nvimcmp"
 local luasnip = require "x.plugins.luasnip"
 local visualstarsearch = require "x.plugins.visualstarsearch"
+local rusttools        = require "x.plugins.rusttools"
 
 return {
     -- fuzzy finder
@@ -21,6 +22,8 @@ return {
     mason,
     -- lsp-config
     lspconfig,
+    -- rust tools
+    rusttools,
     -- nvimcmp
     nvimcmp,
     -- luasnip

@@ -1,9 +1,9 @@
 -- Set up lspconfig.
-local lsps = require "x.consts.lsps"
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
-local on_attach = function (client, bufnr)
+local lsps = require("x.consts.lsps")
 
+local on_attach = function (client, bufnr)
 
   local bufopts = { remap=false, buffer=bufnr }
 
@@ -48,6 +48,13 @@ local on_attach = function (client, bufnr)
 
 end
 
+-- remove rust_analyzer since we're setting it up with rust-tools
+for idx, value in ipairs(lsps) do
+  if value == "rust_analyzer" then
+    table.remove(lsps, idx)
+  end
+end
+
 local servers = lsps
 for _, server in ipairs(servers) do
 	local cfg = {
@@ -81,3 +88,9 @@ for _, server in ipairs(servers) do
 
         require('lspconfig')[server].setup(cfg)
 end
+
+require('rust-tools').setup({
+  server = {
+    on_attach = on_attach
+  }
+})

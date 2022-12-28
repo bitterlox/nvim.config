@@ -4,6 +4,8 @@ require('x.config.plugins.mason')
 
 require('x.config.plugins.lsp')
 
+require('x.plugins.rusttools')
+
 require('x.config.plugins.telescope')
 
 require('x.config.plugins.treesitter')

@@ -11,4 +11,5 @@ return {
     "hrsh7th/cmp-nvim-lsp",
     "hrsh7th/cmp-nvim-lua",
     "saadparwaiz1/cmp_luasnip",
+    "KadoBOT/cmp-plugins"
 }
