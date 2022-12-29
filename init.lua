@@ -41,6 +41,11 @@ require('lazy').setup(toinstall, {})
 
 --
 
+-- todo:
+-- - sort out formating, linting, how those tie-in with LSP and lang-specific 
+--   plugins like go.nvim and rust-tools
+-- - add basic tmux support
+
 -- could use hydra to make myself menus to remember bindings
 -- - define keybindings in lua vars, then use the var to pass it to the actual
 --   keybinding set fn and to the hydra menu, so when i change it there it auto
@@ -49,11 +54,10 @@ require('lazy').setup(toinstall, {})
 --   these hydra menus to see shortcuts
 -- maybe don't install ale, but get formatting capabilities from like, lsp-lua
 -- - linters form here: https://github.com/mfussenegger/nvim-lint
--- - formatting from here: https://github.com/sbdchd/neoformat
+-- - formatting from here: https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTINS.md
 -- - try to only use go.nvim and rust-tools for unique features,
 --   disable everything that can be achieved with more general
---   plugins (like formatting asd diagnostic)
--- install ale, with
+--   plugins (like formatting and diagnostic)
 -- linters:
 --  - js/ts: eslint
 --  - go: lsp,
@@ -64,7 +68,7 @@ require('lazy').setup(toinstall, {})
 --  - css: ???,
 -- fixers:
 --  - js/ts: prettier,
---  - go: gofmt, goimports,
+--  - go: gofumt, goimports,
 --  - rust: rustfmt,
 --  - shells: shellharden,
 --  - vim

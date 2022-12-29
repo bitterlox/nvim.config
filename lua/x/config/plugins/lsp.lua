@@ -84,6 +84,21 @@ for _, server in ipairs(servers) do
 		      },
 		    },
         }
+
+        if server == "gopls" then
+          cfg.cmd = {"gopls", "serve"}
+          cfg.filetypes = {"go", "gomod"}
+          cfg.root_dir = require('lspconfig/util').root_pattern("go.work", "go.mod", ".git")
+          cfg.settings = {
+            gopls = {
+              analyses = {
+                unusedparams = true,
+              },
+              staticcheck = true,
+            },
+          }
+        end
+
         end
 
         require('lspconfig')[server].setup(cfg)
