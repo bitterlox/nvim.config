@@ -41,6 +41,7 @@ require('lazy').setup(toinstall, {})
 
 --
 
+-- could use hydra to make myself menus to remember bindings
 -- maybe don't install ale, but get formatting capabilities from like, lsp-lua
 -- install ale, with
 -- linters:
