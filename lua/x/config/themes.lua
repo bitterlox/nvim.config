@@ -36,6 +36,12 @@ addtheme(function ()
     vim.cmd.colorscheme(color)
 end)
 
+addtheme(function ()
+    local color = color or "carbonfox"
+    vim.cmd.colorscheme(color)
+end)
+
+
 local todaysthemeidx = require('math').fmod(tonumber(os.date('*t').day), #colorfuncs) + 1
 local todaystheme = colorfuncs[todaysthemeidx]
 

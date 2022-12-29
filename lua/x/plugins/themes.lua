@@ -6,4 +6,5 @@ return {
     "rebelot/kanagawa.nvim",
     "Yazeed1s/minimal.nvim",
     "sainnhe/sonokai",
+    "EdenEast/nightfox.nvim"
 }
