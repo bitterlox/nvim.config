@@ -49,11 +49,11 @@ local on_attach = function (client, bufnr)
 end
 
 -- remove rust_analyzer since we're setting it up with rust-tools
-for idx, value in ipairs(lsps) do
-  if value == "rust_analyzer" then
-    table.remove(lsps, idx)
-  end
-end
+--for idx, value in ipairs(lsps) do
+--  if value == "rust_analyzer" then
+--    table.remove(lsps, idx)
+--  end
+--end
 
 local servers = lsps
 for _, server in ipairs(servers) do
@@ -84,6 +84,7 @@ for _, server in ipairs(servers) do
 		      },
 		    },
         }
+        end
 
         if server == "gopls" then
           cfg.cmd = {"gopls", "serve"}
@@ -99,13 +100,25 @@ for _, server in ipairs(servers) do
           }
         end
 
+        -- rust_analyzer is only working for the first buffer we attach to
+
+        if server == "rust_analyzer" then
+          cfg.settings = {
+            ["rust_analyzer"] = {
+              checkOnSave = {
+                command = "clippy",
+              },
+          }
+
+          }
         end
+
 
         require('lspconfig')[server].setup(cfg)
 end
 
-require('rust-tools').setup({
-  server = {
-    on_attach = on_attach
-  }
-})
+--require('rust-tools').setup({
+--  server = {
+--    on_attach = on_attach
+--  }
+--})
