@@ -46,6 +46,15 @@ require('lazy').setup(toinstall, {})
 --   plugins like go.nvim and rust-tools
 -- - add basic tmux support
 
+-- 1. install which-key
+-- 1.1 convert all keybinding to which-key
+-- 1.2 re-think autocompletion keybindings
+-- 2. install null-ls and copy that guys's config, and see if it works
+-- 3. install nvim-lint and linters
+-- 4. figure out why rust only works on the first buffer
+-- 5. figure out go & rust support
+
+
 -- - could use this to save some time https://github.com/folke/which-key.nvim
 --   - could use hydra to make myself menus to remember bindings
 --     - define keybindings in lua vars, then use the var to pass it to the actual
