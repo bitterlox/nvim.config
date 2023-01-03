@@ -7,7 +7,9 @@ local lspconfig = require "x.plugins.lspconfig"
 local nvimcmp = require "x.plugins.nvimcmp"
 local luasnip = require "x.plugins.luasnip"
 local visualstarsearch = require "x.plugins.visualstarsearch"
-local rusttools        = require "x.plugins.rusttools"
+local rusttools = require "x.plugins.rusttools"
+local whichkey = require "x.plugins.whichkey"
+
 
 return {
     -- fuzzy finder
@@ -30,4 +32,6 @@ return {
     luasnip,
     -- search for visually highlighted text
     visualstarsearch,
+    -- which-key - better keymaps
+    whichkey
 }

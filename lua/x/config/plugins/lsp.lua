@@ -1,3 +1,4 @@
+local whichkey = require "which-key"
 -- Set up lspconfig.
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
@@ -5,7 +6,6 @@ local lsps = require("x.consts.lsps")
 
 local on_attach = function (client, bufnr)
 
-  local bufopts = { remap=false, buffer=bufnr }
 
   -- configuring diagnostic stuff --
   -- https://github.com/neovim/nvim-lspconfig/wiki/UI-Customization --
@@ -23,26 +23,52 @@ local on_attach = function (client, bufnr)
   vim.cmd [[autocmd! CursorHold,CursorHoldI * lua vim.diagnostic.open_float(nil, {focus=false})]]
   --
 
-  vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, bufopts)
-  vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, bufopts)
-  vim.keymap.set('n',']d', vim.diagnostic.goto_next, bufopts)
-  vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, bufopts)
 
-  vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
-  vim.keymap.set('n', 'gtd', vim.lsp.buf.type_definition, bufopts)
-  vim.keymap.set('n', 'gdc', vim.lsp.buf.declaration, bufopts)
-  vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
-  vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
-  vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
+  whichkey.register({
+  {
+    l = {
+      name = "lsp",
+      g = {
+        df = {
+          { vim.lsp.buf.type_definition, "go to type type definition" }
+        },
+        dc = {
+          { vim.lsp.buf.type_declaration, "go to type type declaration" }
+        },
+        i = {
+          { vim.lsp.buf.implementation, "go to type type implementation" }
+        }
+      },
+      h = {
+        { vim.lsp.buf.hover, "hover"}
+      },
+      s = {
+        { vim.lsp.buf.signature_help, "signature help"}
+      },
+      r = {
+        n = {
+          { vim.lsp.buf.rename, "rename" }
+        },
+        r = {
+          { vim.lsp.buf.references, "references" }
+        }
+      },
+      a = {
+        { vim.lsp.buf.code_action, "code action" }
+      },
+    }
+  },
+  { mode = "n", prefix = "<leader>", buffer = bufnr},
+  })
+
 --vim.keymap.set('n', '<leader>wa', vim.lsp.buf.add_workspace_folder, bufopts)
 --vim.keymap.set('n', '<leader>wr', vim.lsp.buf.remove_workspace_folder, bufopts)
 --vim.keymap.set('n', '<leader>wl', function()
 --  print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
 --end, bufopts)
-  vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, bufopts)
-  vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, bufopts)
-  vim.keymap.set('n', '<leader>rr', vim.lsp.buf.references, bufopts)
-  vim.keymap.set('n', '<leader>f', vim.lsp.buf.format, bufopts)
+
+-- disable LSP formatting
+--vim.keymap.set('n', '<leader>f', vim.lsp.buf.format, bufopts)
 
 
 
@@ -53,7 +79,7 @@ end
 --  if value == "rust_analyzer" then
 --    table.remove(lsps, idx)
 --  end
---end
+
 
 local servers = lsps
 for _, server in ipairs(servers) do
