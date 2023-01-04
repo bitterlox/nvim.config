@@ -3,8 +3,6 @@
 -- ------------------------------------
 -- MUST BE LOADED BEFORE nvim-lspconfig
 
-
-
 return {
     {
     "williamboman/mason.nvim",

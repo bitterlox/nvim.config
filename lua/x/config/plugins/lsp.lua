@@ -2,7 +2,7 @@ local register_keybindings = require'x.config.plugins.keybindings.lsp'
 -- Set up lspconfig.
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
-local lsps = require("x.consts.lsps")
+local lsps = require("x.config.plugins.mason")
 
 local on_attach = function (client, bufnr)
 
