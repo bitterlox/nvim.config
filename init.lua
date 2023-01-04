@@ -14,46 +14,48 @@ end
 
 vim.opt.runtimepath:prepend(lazypath)
 
-local plugins = require('x.plugins')
+local plugins = require("x.plugins")
 
 local toinstall = {}
 
-for i = #plugins,1,-1 do
+for i = #plugins, 1, -1 do
   local pkgs = plugins[i]
   local validatedpkgs = {}
   -- im here i can loop over pkg, and for entries that aren't a {}, turn them into {},
   -- so that we can also add a pin:true to easily pin/unpin all of the plugins
-  for j = #pkgs,1, -1 do
-	local pkg = pkgs[j]
-  	if type(pkg) ~= "table" then
-  		validatedpkgs[j] = {pkg}
-  	else
-		validatedpkgs[j] = pkg
-	end
-	-- can modify plugin tables en-masse
-  	validatedpkgs[j].pin = true
+  for j = #pkgs, 1, -1 do
+    local pkg = pkgs[j]
+    if type(pkg) ~= "table" then
+      validatedpkgs[j] = { pkg }
+    else
+      validatedpkgs[j] = pkg
+    end
+    -- can modify plugin tables en-masse
+    validatedpkgs[j].pin = true
   end
 
   vim.list_extend(toinstall, validatedpkgs)
 end
 
-require('lazy').setup(toinstall, {})
+require("lazy").setup(toinstall, {})
 
 --
 
 -- todo:
--- - sort out formating, linting, how those tie-in with LSP and lang-specific 
+-- - sort out formating, linting, how those tie-in with LSP and lang-specific
 --   plugins like go.nvim and rust-tools
 -- - add basic tmux support
 
 -- √ 1. install which-key
 -- √ 1.1 convert all keybinding to which-key
 -- √ 1.2 re-think autocompletion keybindings
--- 2. install null-ls and copy that guys's config, and see if it works
--- 3. install nvim-lint and linters
+-- v 2. install null-ls and copy that guys's config, and see if it works
+-- v 3. install nvim-lint and linters
 -- 4. figure out why rust only works on the first buffer
 -- 5. figure out go & rust support
-
+-- remove null-ls, remove which-key
+-- replace which-key with hydra panes
+-- figure out go.nvim and rust-tools
 
 -- - could use this to save some time https://github.com/folke/which-key.nvim
 --   - could use hydra to make myself menus to remember bindings
@@ -91,4 +93,4 @@ require('lazy').setup(toinstall, {})
 -- add proper go dev env, see that guy's nvim config i found
 -- and this https://github.com/numToStr/Navigator.nvim
 
-require('x.config')
+require("x.config")
