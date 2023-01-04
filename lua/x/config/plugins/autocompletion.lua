@@ -1,7 +1,7 @@
   -- Set up nvim-cmp
 local cmp = require'cmp'
 
-local generate_keybindings = require'lua.x.config.plugins.keybindings.autocompletion'
+local generate_keybindings = require'x.config.plugins.keybindings.autocompletion'
 
 cmp.setup({
   snippet = {
