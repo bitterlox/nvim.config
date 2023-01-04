@@ -1,4 +1,4 @@
-local whichkey = require "which-key"
+local register_keybindings = require'x.config.plugins.keybindings.lsp'
 -- Set up lspconfig.
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
@@ -23,43 +23,7 @@ local on_attach = function (client, bufnr)
   vim.cmd [[autocmd! CursorHold,CursorHoldI * lua vim.diagnostic.open_float(nil, {focus=false})]]
   --
 
-  local mapping = {
-    l = {
-      name = "lsp",
-      g = {
-        df = {
-          { vim.lsp.buf.type_definition, "go to type type definition" }
-        },
-        dc = {
-          { vim.lsp.buf.type_declaration, "go to type type declaration" }
-        },
-        i = {
-          { vim.lsp.buf.implementation, "go to type type implementation" }
-        }
-      },
-      h = {
-        { vim.lsp.buf.hover, "hover"}
-      },
-      s = {
-        { vim.lsp.buf.signature_help, "signature help"}
-      },
-      r = {
-        n = {
-          { vim.lsp.buf.rename, "rename" }
-        },
-        r = {
-          { vim.lsp.buf.references, "references" }
-        }
-      },
-      a = {
-        { vim.lsp.buf.code_action, "code action" }
-      },
-    }
-  }
-
-  local opts = { mode = "n", prefix = "<leader>", buffer = bufnr}
-
-  whichkey.register(mapping, opts)
+  register_keybindings(client, bufnr)
 
 --vim.keymap.set('n', '<leader>wa', vim.lsp.buf.add_workspace_folder, bufopts)
 --vim.keymap.set('n', '<leader>wr', vim.lsp.buf.remove_workspace_folder, bufopts)

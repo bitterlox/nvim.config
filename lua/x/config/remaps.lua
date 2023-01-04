@@ -7,10 +7,7 @@ vim.keymap.set("n", "<leader>cc", vim.cmd.close)
 vim.keymap.set("n", "<leader>nrw", vim.cmd.Ex)
 
 -- Lazy quick open
---vim.keymap.set("n", "<leader>lzy", vim.cmd.Lazy)
-
--- Mason quick open
-vim.keymap.set("n", "<leader>msn", vim.cmd.Mason)
+vim.keymap.set("n", "<leader>lzy", vim.cmd.Lazy)
 
 -- move visually highlighted text
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")

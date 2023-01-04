@@ -46,9 +46,9 @@ require('lazy').setup(toinstall, {})
 --   plugins like go.nvim and rust-tools
 -- - add basic tmux support
 
--- 1. install which-key
--- 1.1 convert all keybinding to which-key
--- 1.2 re-think autocompletion keybindings
+-- √ 1. install which-key
+-- √ 1.1 convert all keybinding to which-key
+-- √ 1.2 re-think autocompletion keybindings
 -- 2. install null-ls and copy that guys's config, and see if it works
 -- 3. install nvim-lint and linters
 -- 4. figure out why rust only works on the first buffer

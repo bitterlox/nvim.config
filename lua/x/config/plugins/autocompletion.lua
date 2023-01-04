@@ -1,7 +1,7 @@
   -- Set up nvim-cmp
 local cmp = require'cmp'
 
-local cmp_select = { behavior = cmp.SelectBehavior.Select }
+local generate_keybindings = require'lua.x.config.plugins.keybindings.autocompletion'
 
 cmp.setup({
   snippet = {
@@ -17,22 +17,7 @@ cmp.setup({
     -- completion = cmp.config.window.bordered(),
     -- documentation = cmp.config.window.bordered(),
   },
-  mapping = cmp.mapping.preset.insert({
-    -- next item
-    ['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
-    -- previous item
-    ['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
-    -- scroll back docs
-    ['<C-b>'] = cmp.mapping.scroll_docs(-4),
-    -- scroll forward docs
-    ['<C-f>'] = cmp.mapping.scroll_docs(4),
-    -- start completion
-    ['<C-Space>'] = cmp.mapping.complete(),
-    -- stop completion
-    ['<C-e>'] = cmp.mapping.abort(),
-    -- accept selected completion suggestion (also enter key works for this)
-    ['<Tab>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
-  }),
+  mapping = generate_keybindings(cmp),
 -- more completion sources: https://github.com/hrsh7th/nvim-cmp/wiki/List-of-sources
   sources = cmp.config.sources({
     { name = 'nvim_lsp' },

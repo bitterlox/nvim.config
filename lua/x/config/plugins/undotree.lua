@@ -1,13 +1,3 @@
-local whichkey = require "which-key"
+local register_keys = require'x.config.plugins.keybindings.undotree'
 
-local mapping = {
-  u = {
-    name = "undotree",
-    { "<cmd>UndotreeToggle<cr>", "open undotree" }
-  }
-}
-
-local opts = { mode = "n", prefix = "<leader>" }
-
-whichkey.register(mapping, opts)
-
+register_keys()
