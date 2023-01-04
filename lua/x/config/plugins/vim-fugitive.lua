@@ -1,13 +1,14 @@
 local whichkey = require "which-key"
 
-whichkey.register({
-{
+local mapping = {
   g = {
     s = {
       { "<cmd>Git<cr>", "open fugitive" }
     }
   }
-},
-{ mode = "n", prefix = "<leader>" },
-})
+}
+
+local opts = { mode = "n", prefix = "<leader>" }
+
+whichkey.register(mapping,opts)
 

@@ -1,12 +1,13 @@
 local whichkey = require "which-key"
 
-whichkey.register({
-{
+local mapping = {
   u = {
     name = "undotree",
     { "<cmd>UndotreeToggle<cr>", "open undotree" }
   }
-},
-{ mode = "n", prefix = "<leader>" },
-})
+}
+
+local opts = { mode = "n", prefix = "<leader>" }
+
+whichkey.register(mapping, opts)
 

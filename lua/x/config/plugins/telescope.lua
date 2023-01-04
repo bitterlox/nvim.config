@@ -1,8 +1,7 @@
 local builtin = require('telescope.builtin')
 local whichkey = require "which-key"
 
-whichkey.register({
-{
+local mapping = {
   t = {
     name = "telescope",
     p = {
@@ -20,9 +19,11 @@ whichkey.register({
       }
     }
   }
-},
-{ prefix = "<leader>" },
-})
+}
+
+local opts = { prefix = "<leader>" }
+
+whichkey.register(mapping,opts)
 
 --vim.keymap.set('n', '<leader>fg', builtin.live_grep, {})
 --vim.keymap.set('n', '<leader>fb', builtin.buffers, {})

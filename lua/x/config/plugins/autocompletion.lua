@@ -1,6 +1,5 @@
   -- Set up nvim-cmp
 local cmp = require'cmp'
-local whichkey = require "which-key"
 
 local cmp_select = { behavior = cmp.SelectBehavior.Select }
 
@@ -18,7 +17,6 @@ cmp.setup({
     -- completion = cmp.config.window.bordered(),
     -- documentation = cmp.config.window.bordered(),
   },
- -- mapping = cmp.config.disable, -- do this for individual keys
   mapping = cmp.mapping.preset.insert({
     -- next item
     ['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
@@ -45,35 +43,6 @@ cmp.setup({
     { name = 'buffer' },
   })
 })
-
---whichkey.register({
---{
---  p = {
---    { cmp.mapping.select_prev_item(), "select previous item in completion menu"}
---  },
---  n = {
---    { cmp.mapping.select_next_item(), "select next item in completion menu"}
---  },
---  b = {
---    { cmp.mapping.scroll_docs(-4), "scroll docs up"}
---  },
---  f = {
---    { cmp.mapping.scroll_docs(4), "scroll docs down"}
---  },
---  ["<space>"] = {
---    { cmp.mapping.complete(), "open completion"}
---  },
---  e  = {
---    { cmp.mapping.abort(), "open completion"}
---  },
---  ["<tab>"]  = {
---    { cmp.mapping.confirm({ select = true }), "accept completion"}
---  },
---
---},
---{ mode = "i", prefix = "<C>" },
---})
-
 	-- Set configuration for specific filetype.
       --cmp.setup.filetype('gitcommit', {
       --  sources = cmp.config.sources({
@@ -91,7 +60,6 @@ cmp.setup.cmdline({ '/', '?' }, {
   }
 })
 
-
 -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
 cmp.setup.cmdline(':', {
   mapping = cmp.mapping.preset.cmdline(),
@@ -101,7 +69,3 @@ cmp.setup.cmdline(':', {
     { name = 'cmdline' }
   })
 })
-
-
-
-  

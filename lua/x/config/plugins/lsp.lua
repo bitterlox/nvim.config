@@ -23,9 +23,7 @@ local on_attach = function (client, bufnr)
   vim.cmd [[autocmd! CursorHold,CursorHoldI * lua vim.diagnostic.open_float(nil, {focus=false})]]
   --
 
-
-  whichkey.register({
-  {
+  local mapping = {
     l = {
       name = "lsp",
       g = {
@@ -57,9 +55,11 @@ local on_attach = function (client, bufnr)
         { vim.lsp.buf.code_action, "code action" }
       },
     }
-  },
-  { mode = "n", prefix = "<leader>", buffer = bufnr},
-  })
+  }
+
+  local opts = { mode = "n", prefix = "<leader>", buffer = bufnr}
+
+  whichkey.register(mapping, opts)
 
 --vim.keymap.set('n', '<leader>wa', vim.lsp.buf.add_workspace_folder, bufopts)
 --vim.keymap.set('n', '<leader>wr', vim.lsp.buf.remove_workspace_folder, bufopts)
