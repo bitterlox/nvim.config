@@ -109,15 +109,6 @@ for _, server in ipairs(servers) do
           }
         end
 
-        if server == "rust_analyzer" then
-          cfg.settings = {
-            bashls = {
-              shellcheckPath = mason_registry.get_package("shellcheck"):get_install_path()
-            }
-          }
-        end
-
-
         require('lspconfig')[server].setup(cfg)
 end
 
