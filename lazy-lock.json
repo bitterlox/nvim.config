@@ -8,6 +8,7 @@
   "cmp-plugins": { "branch": "main", "commit": "e321688e92e557851cfeee8ca552659a095b908c" },
   "cmp_luasnip": { "branch": "master", "commit": "18095520391186d634a0045dacaa346291096566" },
   "friendly-snippets": { "branch": "main", "commit": "1a6a02350568d6830bcfa167c72f9b6e75e454ae" },
+  "go.nvim": { "branch": "master", "commit": "26fd07ebada5035d54459f09813e8738d0517676" },
   "kanagawa.nvim": { "branch": "master", "commit": "fb733c1043a462155b52cd97efd920f1dd72d33a" },
   "lazy.nvim": { "branch": "main", "commit": "0063e439a3230f3821f46496395a22134e63cbc1" },
   "mason-lspconfig.nvim": { "branch": "main", "commit": "fc78caa46e306103818137759afcc908ab6be948" },
@@ -29,6 +30,5 @@
   "vim-repeat": { "branch": "master", "commit": "24afe922e6a05891756ecf331f39a1f6743d3d5a" },
   "vim-surround": { "branch": "master", "commit": "3d188ed2113431cf8dac77be61b842acb64433d9" },
   "vim-vinegar": { "branch": "master", "commit": "bb1bcddf43cfebe05eb565a84ab069b357d0b3d6" },
-  "vim-visual-star-search": { "branch": "master", "commit": "7c32edb9e3c85d473d9be4dec721a4c9d5d4d69c" },
-  "which-key.nvim": { "branch": "main", "commit": "8682d3003595017cd8ffb4c860a07576647cc6f8" }
+  "vim-visual-star-search": { "branch": "master", "commit": "7c32edb9e3c85d473d9be4dec721a4c9d5d4d69c" }
 }

@@ -9,6 +9,7 @@ local luasnip = require("x.plugins.luasnip")
 local visualstarsearch = require("x.plugins.visualstarsearch")
 local rusttools = require("x.plugins.rusttools")
 local null_ls = require("x.plugins.null-ls")
+local go = require("x.plugins.go")
 
 return {
   -- fuzzy finder
@@ -33,4 +34,6 @@ return {
   visualstarsearch,
   -- null-ls
   null_ls,
+  -- go.nvim
+  go,
 }
