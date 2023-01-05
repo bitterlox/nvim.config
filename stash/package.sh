@@ -89,8 +89,6 @@ mv tmp $filepath
 
 }
 
-
-
 setup_init_file() {
 
 filename="init.lua"

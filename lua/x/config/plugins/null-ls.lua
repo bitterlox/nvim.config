@@ -8,10 +8,10 @@ nls.setup({
     --    nls.builtins.formatting.prettier.with({
     --      extra_args = { "--single-quote", "false" },
     --    }),
-    nls.builtins.formatting.goimports,
-    nls.builtins.formatting.gofumpt,
+    nls.builtins.diagnostics.eslint,
+    nls.builtins.diagnostics.tsc,
+    nls.builtins.diagnostics.shellcheck,
     nls.builtins.code_actions.shellcheck,
-    nls.builtins.completion.spell,
   },
   on_attach = function(client, bufnr)
     if client.supports_method("textDocument/formatting") then
