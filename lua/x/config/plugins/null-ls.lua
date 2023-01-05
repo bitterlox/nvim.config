@@ -11,7 +11,6 @@ nls.setup({
     nls.builtins.formatting.goimports,
     nls.builtins.formatting.gofumpt,
     nls.builtins.code_actions.shellcheck,
-    nls.builtins.completion.spell,
   },
   on_attach = function(client, bufnr)
     if client.supports_method("textDocument/formatting") then
