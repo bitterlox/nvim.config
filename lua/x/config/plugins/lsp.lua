@@ -1,3 +1,9 @@
+local mason_registry = require("mason-registry")
+local codelldb = mason_registry.get_package("codelldb") -- note that this will error if you provide a non-existent package name
+codelldb:get_install_path() -- returns a string like "/home/user/.local/share/nvim/mason/packages/codelldb"
+
+
+
 local register_keybindings = require'x.config.plugins.keybindings.lsp'
 -- Set up lspconfig.
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
@@ -100,6 +106,14 @@ for _, server in ipairs(servers) do
               },
           }
 
+          }
+        end
+
+        if server == "rust_analyzer" then
+          cfg.settings = {
+            bashls = {
+              shellcheckPath = mason_registry.get_package("shellcheck"):get_install_path()
+            }
           }
         end
 
