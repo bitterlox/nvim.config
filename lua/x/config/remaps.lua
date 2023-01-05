@@ -1,5 +1,3 @@
-local whichkey = require("which-key")
-
 -- leader mappings
 vim.keymap.set("n", "<leader>wq", vim.cmd.wq)
 vim.keymap.set("n", "<leader>cc", vim.cmd.close)
@@ -26,8 +24,8 @@ vim.keymap.set("n", "n", "nzzzv")
 vim.keymap.set("n", "N", "Nzzzv")
 
 -- paste without losing paste buffer
-vim.keymap.set("x", "<leader>p", "\"_dP")
-vim.keymap.set("n", "<leader>y", "\"+y")
+vim.keymap.set("x", "<leader>p", '"_dP')
+vim.keymap.set("n", "<leader>y", '"+y')
 
 -- yank to system clipboard | not sure that i like it or that i works as intended
 --vim.keymap.set("n", "<leader>y", "\"+y")
@@ -52,18 +50,3 @@ vim.keymap.set("n", "<leader>j", "<cmd>cprev<CR>zz")
 vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
 -- make file executable
 vim.keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true })
-
-whichkey.register(
-{
-  d = {
-    name = "diagnostic",
-    o = { vim.diagnostic.open_float, "open vim diagnostic window"},
-    p = { vim.diagnostic.goto_prev, "go to previous diagnostic issue"},
-    n = { vim.diagnostic.goto_next, "go to next diagnostic issue"},
-    l = { vim.diagnostic.setloclist, "add buffer diagnostics to the location list"}
-  }
-},
-{ mode = "n" }
-)
--- open all folds
-

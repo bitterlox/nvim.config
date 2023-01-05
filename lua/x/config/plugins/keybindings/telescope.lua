@@ -1,31 +1,11 @@
-local builtin = require('telescope.builtin')
-local whichkey = require "which-key"
+local builtin = require("telescope.builtin")
 
-return function ()
-  local mapping = {
-    t = {
-      name = "telescope",
-      p = {
-        { builtin.find_files , "find project files" }
-      },
-      gi = {
-        { builtin.git_files , "find git files" }
-      },
-      gr = {
-        {
-          function()
-            builtin.grep_string({ search = vim.fn.input("Grep > ")});
-          end ,
-          "find in file"
-        }
-      }
-    }
-  }
-
-  local opts = { prefix = "<leader>" }
-
-  whichkey.register(mapping,opts)
-
+return function()
+  vim.keymap.set("n", "<leader>pf", builtin.find_files)
+  vim.keymap.set("n", "<leader>gf", builtin.git_files)
+  vim.keymap.set("n", "<leader>gr", function()
+    builtin.grep_string({ search = vim.fn.input("Grep > ") })
+  end)
 end
 
 --vim.keymap.set('n', '<leader>fg', builtin.live_grep, {})

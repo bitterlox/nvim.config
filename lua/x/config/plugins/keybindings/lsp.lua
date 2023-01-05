@@ -1,39 +1,24 @@
-local whichkey = require "which-key"
+return function(client, bufnr)
+  local bufopts = { remap = false, buffer = bufnr }
 
-return function (client, bufnr)
-  local mapping = {
-    g = {
-      name = "lsp - go to",
-      df = {
-        { vim.lsp.buf.type_definition, "go to definition" }
-      },
-      dc = {
-        { vim.lsp.buf.type_declaration, "go to declaration" }
-      },
-      i = {
-        { vim.lsp.buf.implementation, "go to implementation" }
-      }
-    },
-    h = {
-        { vim.lsp.buf.hover, "hover"}
-    },
-    s = {
-      { vim.lsp.buf.signature_help, "signature help"}
-    },
-    r = {
-      n = {
-        { vim.lsp.buf.rename, "rename" }
-      },
-      r = {
-        { vim.lsp.buf.references, "references" }
-      }
-    },
-    a = {
-      { vim.lsp.buf.code_action, "code action" }
-    },
-  }
+  vim.keymap.set("n", "<leader>d", vim.diagnostic.open_float, bufopts)
+  vim.keymap.set("n", "dp", vim.diagnostic.goto_prev, bufopts)
+  vim.keymap.set("n", "dn", vim.diagnostic.goto_next, bufopts)
+  vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, bufopts)
 
-  local opts = { mode = "n", prefix = "<leader>", buffer = bufnr}
-
-  whichkey.register(mapping, opts)
+  vim.keymap.set("n", "gd", vim.lsp.buf.definition, bufopts)
+  vim.keymap.set("n", "gdc", vim.lsp.buf.declaration, bufopts)
+  vim.keymap.set("n", "gtd", vim.lsp.buf.type_definition, bufopts)
+  vim.keymap.set("n", "gi", vim.lsp.buf.implementation, bufopts)
+  vim.keymap.set("n", "H", vim.lsp.buf.hover, bufopts)
+  vim.keymap.set("n", "<C-s>", vim.lsp.buf.signature_help, bufopts)
+  --vim.keymap.set('n', '<leader>wa', vim.lsp.buf.add_workspace_folder, bufopts)
+  --vim.keymap.set('n', '<leader>wr', vim.lsp.buf.remove_workspace_folder, bufopts)
+  --vim.keymap.set('n', '<leader>wl', function()
+  --  print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+  --end, bufopts)
+  vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, bufopts)
+  vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, bufopts)
+  vim.keymap.set("n", "<leader>rr", vim.lsp.buf.references, bufopts)
+  vim.keymap.set("n", "<leader>f", vim.lsp.buf.format, bufopts)
 end
