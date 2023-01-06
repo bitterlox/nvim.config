@@ -17,6 +17,14 @@ addtheme(darkcolorfuns, function()
 end)
 
 addtheme(darkcolorfuns, function()
+  local color = color or "adwaita"
+  vim.g.adwaita_darker = true
+  vim.cmd.colorscheme(color)
+  --  vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
+  --  vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
+end)
+
+addtheme(darkcolorfuns, function()
   local color = color or "kanagawa"
   vim.cmd.colorscheme(color)
 end)
@@ -47,6 +55,14 @@ end)
 
 addtheme(lightcolorfuns, function()
   local color = color or "rose-pine"
+
+  vim.o.background = "light"
+
+  vim.cmd.colorscheme(color)
+end)
+
+addtheme(lightcolorfuns, function()
+  local color = color or "adwaita"
 
   vim.o.background = "light"
 
