@@ -1,7 +1,4 @@
-local mason_registry = require("mason-registry")
-local codelldb = mason_registry.get_package("codelldb") -- note that this will error if you provide a non-existent package name
-codelldb:get_install_path() -- returns a string like "/home/user/.local/share/nvim/mason/packages/codelldb"
-
+local inlayhints = require("lsp-inlayhints")
 local register_keybindings = require("x.config.plugins.keybindings.lsp")
 -- Set up lspconfig.
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
@@ -20,6 +17,7 @@ local lsps = require("x.config.plugins.mason")
 
 local on_attach = function(client, bufnr)
   register_keybindings(client, bufnr)
+  inlayhints.on_attach(client, bufnr, false)
 
   --vim.keymap.set('n', '<leader>wa', vim.lsp.buf.add_workspace_folder, bufopts)
   --vim.keymap.set('n', '<leader>wr', vim.lsp.buf.remove_workspace_folder, bufopts)
@@ -78,6 +76,15 @@ for _, server in ipairs(servers) do
           unusedparams = true,
         },
         staticcheck = true,
+        hints = {
+          assignVariableTypes = true,
+          compositeLiteralFields = true,
+          compositeLiteralTypes = true,
+          constantValues = true,
+          functionTypeParameters = true,
+          parameterNames = true,
+          rangeVariableTypes = true,
+        },
       },
     }
   end

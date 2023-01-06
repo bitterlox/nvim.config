@@ -15,3 +15,5 @@ require("x.config.plugins.vim-fugitive")
 require("x.config.plugins.lazy")
 
 require("x.config.plugins.null-ls")
+
+require("x.config.plugins.inlay-hints")

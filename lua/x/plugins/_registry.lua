@@ -8,6 +8,7 @@ local nvimcmp = require("x.plugins.nvimcmp")
 local luasnip = require("x.plugins.luasnip")
 local visualstarsearch = require("x.plugins.visualstarsearch")
 local null_ls = require("x.plugins.null-ls")
+local inlayhints = require("x.plugins.inlay-hints")
 
 return {
   -- fuzzy finder
@@ -30,4 +31,6 @@ return {
   visualstarsearch,
   -- null-ls
   null_ls,
+  -- inlayhints
+  inlayhints,
 }
