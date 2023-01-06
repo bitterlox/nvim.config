@@ -40,7 +40,7 @@ end
 require("lazy").setup(toinstall, {})
 
 --
-
+-- add testing through this package https://github.com/vim-test/vim-test
 -- todo:
 -- - sort out formating, linting, how those tie-in with LSP and lang-specific
 --   plugins like go.nvim and rust-tools
