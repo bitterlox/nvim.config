@@ -4,8 +4,6 @@ require("x.config.plugins.mason")
 
 require("x.config.plugins.lsp")
 
-require("x.plugins.rusttools")
-
 require("x.config.plugins.telescope")
 
 require("x.config.plugins.treesitter")
@@ -17,5 +15,3 @@ require("x.config.plugins.vim-fugitive")
 require("x.config.plugins.lazy")
 
 require("x.config.plugins.null-ls")
-
-require("x.config.plugins.go")
