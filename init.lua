@@ -45,6 +45,9 @@ require("lazy").setup(toinstall, {})
 -- - sort out formating, linting, how those tie-in with LSP and lang-specific
 --   plugins like go.nvim and rust-tools
 -- - add basic tmux support
+--
+-- to remember keymappings i will simply create a telescope thing that
+-- places me into the config/plugins/keybindings folder
 
 -- √ 1. install which-key
 -- √ 1.1 convert all keybinding to which-key
