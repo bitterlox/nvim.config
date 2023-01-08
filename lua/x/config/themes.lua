@@ -53,13 +53,13 @@ end)
 
 -- light themes --
 
-addtheme(lightcolorfuns, function()
-  local color = color or "rose-pine"
-
-  vim.o.background = "light"
-
-  vim.cmd.colorscheme(color)
-end)
+--addtheme(lightcolorfuns, function()
+--  local color = color or "rose-pine"
+--
+--  vim.o.background = "light"
+--
+--  vim.cmd.colorscheme(color)
+--end)
 
 addtheme(lightcolorfuns, function()
   local color = color or "adwaita"
