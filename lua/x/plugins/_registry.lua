@@ -9,6 +9,7 @@ local luasnip = require("x.plugins.luasnip")
 local visualstarsearch = require("x.plugins.visualstarsearch")
 local null_ls = require("x.plugins.null-ls")
 local inlayhints = require("x.plugins.inlay-hints")
+local neotest = require("x.plugins.neotest")
 
 return {
   -- fuzzy finder
@@ -33,4 +34,6 @@ return {
   null_ls,
   -- inlayhints
   inlayhints,
+  -- neotest
+  neotest,
 }

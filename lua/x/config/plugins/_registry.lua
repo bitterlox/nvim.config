@@ -17,3 +17,5 @@ require("x.config.plugins.lazy")
 require("x.config.plugins.null-ls")
 
 require("x.config.plugins.inlay-hints")
+
+require("x.config.plugins.neotest")
