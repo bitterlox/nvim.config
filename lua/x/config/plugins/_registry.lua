@@ -19,3 +19,5 @@ require("x.config.plugins.null-ls")
 require("x.config.plugins.inlay-hints")
 
 require("x.config.plugins.neotest")
+
+require("x.config.plugins.navigator")

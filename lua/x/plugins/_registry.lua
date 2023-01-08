@@ -11,6 +11,7 @@ local visualstarsearch = require("x.plugins.visualstarsearch")
 local null_ls = require("x.plugins.null-ls")
 local inlayhints = require("x.plugins.inlay-hints")
 local neotest = require("x.plugins.neotest")
+local navigator = require("x.plugins.navigator")
 
 return {
   -- fuzzy finder
@@ -39,4 +40,6 @@ return {
   inlayhints,
   -- neotest
   neotest,
+  -- navigator - navigation between vim splits and terminal multiplexer
+  navigator,
 }
