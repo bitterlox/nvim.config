@@ -5,6 +5,7 @@ local tpope = require("x.plugins.tpope")
 local mason = require("x.plugins.mason")
 local lspconfig = require("x.plugins.lspconfig")
 local nvimcmp = require("x.plugins.nvimcmp")
+local neodev = require("x.plugins.neodev")
 local luasnip = require("x.plugins.luasnip")
 local visualstarsearch = require("x.plugins.visualstarsearch")
 local null_ls = require("x.plugins.null-ls")
@@ -26,6 +27,8 @@ return {
   lspconfig,
   -- nvimcmp
   nvimcmp,
+  -- neodev - completion sources from plugins & neovim apis
+  neodev,
   -- luasnip
   luasnip,
   -- search for visually highlighted text
