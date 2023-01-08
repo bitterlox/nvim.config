@@ -50,3 +50,7 @@ vim.keymap.set("n", "<leader>j", "<cmd>cprev<CR>zz")
 vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
 -- make file executable
 vim.keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true })
+
+-- gl - > $
+-- gh - > 0
+-- leader f - b = C_O , C_P

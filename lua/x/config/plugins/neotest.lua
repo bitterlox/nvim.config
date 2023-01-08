@@ -1,5 +1,8 @@
-local neotest_ns = vim.api.nvim_create_namespace("neotest")
+local register_keys = require("x.config.plugins.keybindings.neotest")
 
+register_keys()
+
+local neotest_ns = vim.api.nvim_create_namespace("neotest")
 vim.diagnostic.config({
   virtual_text = {
     format = function(diagnostic)
