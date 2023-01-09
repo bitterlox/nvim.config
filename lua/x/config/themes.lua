@@ -61,13 +61,13 @@ end)
 --  vim.cmd.colorscheme(color)
 --end)
 
-addtheme(lightcolorfuns, function()
-  local color = color or "adwaita"
-
-  vim.o.background = "light"
-
-  vim.cmd.colorscheme(color)
-end)
+--addtheme(lightcolorfuns, function()
+--  local color = color or "adwaita"
+--
+--  vim.o.background = "light"
+--
+--  vim.cmd.colorscheme(color)
+--end)
 
 addtheme(lightcolorfuns, function()
   local color = color or "dayfox"
