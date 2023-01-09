@@ -12,6 +12,7 @@ local null_ls = require("x.plugins.null-ls")
 local inlayhints = require("x.plugins.inlay-hints")
 local neotest = require("x.plugins.neotest")
 local tmux = require("x.plugins.tmux")
+local nvimcokeline = require("x.plugins.nvim-cokeline")
 
 return {
   -- fuzzy finder
@@ -42,4 +43,6 @@ return {
   neotest,
   -- tmux - integrate with tmux
   tmux,
+  -- nvim-cokeline - buffer line
+  nvimcokeline,
 }

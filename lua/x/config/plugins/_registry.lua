@@ -21,3 +21,5 @@ require("x.config.plugins.inlay-hints")
 require("x.config.plugins.neotest")
 
 require("x.config.plugins.tmux")
+
+require("x.config.plugins.nvim-cokeline")
