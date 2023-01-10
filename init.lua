@@ -40,7 +40,9 @@ end
 require("lazy").setup(toinstall, {})
 
 -- add plugin to implement go interface
--- add formato go on save
+-- add format go on save
+-- add special indenting rules per-language
+-- add lsp incoming/outgoing calls
 --
 -- add testing through this package https://github.com/vim-test/vim-test
 -- todo:
