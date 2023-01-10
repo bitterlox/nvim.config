@@ -84,13 +84,15 @@ local isnighttime = datetable.hour > 20
 
 local todaystheme = nil
 
-if isnighttime then
-  local idx = require("math").fmod(tonumber(datetable.day), #darkcolorfuns) + 1
-  todaystheme = darkcolorfuns[idx]
-else
-  local idx = require("math").fmod(tonumber(datetable.day), #lightcolorfuns) + 1
-  todaystheme = lightcolorfuns[idx]
-end
+-- if isnighttime then
+--   local idx = require("math").fmod(tonumber(datetable.day), #darkcolorfuns) + 1
+--   todaystheme = darkcolorfuns[idx]
+-- else
+--   local idx = require("math").fmod(tonumber(datetable.day), #lightcolorfuns) + 1
+--   todaystheme = lightcolorfuns[idx]
+-- end
+local idx = require("math").fmod(tonumber(datetable.day), #darkcolorfuns) + 1
+todaystheme = darkcolorfuns[idx]
 
 vim.cmd("set termguicolors")
 
