@@ -26,6 +26,12 @@ telescope.setup({
     lsp_references = {
       theme = "dropdown",
     },
+    lsp_incoming_calls = {
+      theme = "dropdown",
+    },
+    lsp_outgoing_calls = {
+      theme = "dropdown",
+    },
     lsp_definitions = {
       theme = "dropdown",
     },

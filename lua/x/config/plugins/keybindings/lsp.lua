@@ -25,6 +25,8 @@ return function(client, bufnr)
 
   -- there's also incoming calls and outgoing calls if i like that
   vim.keymap.set("n", "<leader>rr", builtin.lsp_references, bufopts)
+  vim.keymap.set("n", "<leader>ic", builtin.lsp_incoming_calls, bufopts)
+  vim.keymap.set("n", "<leader>oc", builtin.lsp_outgoing_calls, bufopts)
   vim.keymap.set("n", "gd", builtin.lsp_definitions, bufopts)
   vim.keymap.set("n", "gtd", builtin.lsp_type_definitions, bufopts)
   vim.keymap.set("n", "gi", builtin.lsp_implementations, bufopts)
