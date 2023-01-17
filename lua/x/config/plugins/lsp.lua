@@ -74,11 +74,31 @@ for _, server in ipairs(servers) do
     cfg.root_dir = require("lspconfig/util").root_pattern("go.work", "go.mod", ".git")
     cfg.settings = {
       gopls = {
+        -- general settings
+        -- https://github.com/golang/tools/blob/master/gopls/doc/settings.md
         analyses = {
+          -- analyzers settings
+          -- https://github.com/golang/tools/blob/master/gopls/doc/analyzers.md
+          fieldalignment = true,
+          nilness = true,
+          shadow = true,
           unusedparams = true,
+          unusedwrite = true,
+          useany = true,
+          unusedvariable = true,
         },
+        -- use linters from staticcheck.io
         staticcheck = true,
+        -- diagnostics reported by the gc_details command
+        annotations = {
+          bounds = true,
+          escape = true,
+          inline = true,
+          ["nil"] = true,
+        },
         hints = {
+          -- inlayhints settings
+          -- https://github.com/golang/tools/blob/master/gopls/doc/inlayHints.md
           assignVariableTypes = true,
           compositeLiteralFields = true,
           compositeLiteralTypes = true,
