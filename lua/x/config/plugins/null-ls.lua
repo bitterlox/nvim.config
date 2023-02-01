@@ -8,7 +8,9 @@ nls.setup({
     --    nls.builtins.formatting.prettier.with({
     --      extra_args = { "--single-quote", "false" },
     --    }),
-    nls.builtins.diagnostics.eslint,
+    nls.builtins.formatting.prettier,
+    nls.builtins.diagnostics.jsonlint,
+    nls.builtins.diagnostics.eslint_d,
     nls.builtins.diagnostics.tsc,
     nls.builtins.diagnostics.shellcheck,
     nls.builtins.code_actions.shellcheck,
