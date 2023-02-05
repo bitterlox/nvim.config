@@ -16,5 +16,13 @@ require("neotest").setup({
   -- your neotest config here
   adapters = {
     require("neotest-go"),
+    require("neotest-jest")({
+      jestCommand = "npm test --",
+      jestConfigFile = "jest.config.js",
+      env = { CI = true },
+      cwd = function(_)
+        return vim.fn.getcwd()
+      end,
+    }),
   },
 })
