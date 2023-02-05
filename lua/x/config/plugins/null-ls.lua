@@ -1,5 +1,8 @@
 local nls = require("null-ls")
+local register_keys = require("x.config.plugins.keybindings.null-ls")
 local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
+
+register_keys()
 
 nls.setup({
   sources = {
@@ -9,6 +12,7 @@ nls.setup({
     --      extra_args = { "--single-quote", "false" },
     --    }),
     nls.builtins.formatting.prettier,
+    nls.builtins.formatting.shellharden,
     nls.builtins.diagnostics.jsonlint,
     nls.builtins.diagnostics.eslint_d,
     nls.builtins.diagnostics.tsc,
