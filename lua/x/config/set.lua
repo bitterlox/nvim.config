@@ -4,8 +4,6 @@
 vim.opt.nu = true
 vim.opt.relativenumber = true
 
-
-
 -- indentation --
 -- https://vim.fandom.com/wiki/Indenting_source_code
 vim.opt.expandtab = true
@@ -15,7 +13,7 @@ vim.opt.smartindent = true
 
 -- folding --
 vim.opt.foldmethod = "indent"
-vim.opt.foldlevel = 100
+vim.opt.foldlevel = 1
 
 -- disable line wrapping
 vim.opt.wrap = false
